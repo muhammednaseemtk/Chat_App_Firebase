@@ -5,11 +5,11 @@ import 'package:chat_app/constants/app_text.dart';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class RegisterPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  LoginPage({super.key});
-  
+  final TextEditingController _confirmPasswordController = TextEditingController();
+   RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class LoginPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              AppText.lgnMsg,
+              AppText.rgMsg,
               style: TextStyle(
                 color: AppColor.iconClr,
                 fontWeight: FontWeight.w400,
@@ -45,21 +45,27 @@ class LoginPage extends StatelessWidget {
               controller: _passwordController,
               obsecureTxt: true,
             ),
+            SizedBox(height: 10,),
+            CommonTextField(
+              txt: 'Confirm Password',
+              controller: _confirmPasswordController,
+              obsecureTxt: true,
+            ),
             SizedBox(height: 60),
-            CommonButton(txt: 'Login', onPressed: () {}),
-            SizedBox(height: 30),
+            CommonButton(txt: 'Register', onPressed: () {}),
+            SizedBox(height: 40),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  AppText.lgnMsg1,
+                  AppText.rgMsg1,
                   style: TextStyle(
                     color: AppColor.iconClr,
                     fontWeight: FontWeight.w400,
                     fontSize: 17,
                   ),
                 ),
-                TextButton(onPressed: (){}, child: Text('Register now', style: TextStyle(
+                TextButton(onPressed: (){}, child: Text('Login now', style: TextStyle(
                     color: AppColor.iconClr,
                     fontWeight: FontWeight.w800,
                     fontSize: 17,
