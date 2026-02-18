@@ -24,7 +24,9 @@ class RegisterPage extends StatelessWidget {
               size: 80,
               color: AppColor.iconClr,
             ),
+            
             SizedBox(height: 20),
+
             Text(
               AppText.rgMsg,
               style: TextStyle(
@@ -33,27 +35,37 @@ class RegisterPage extends StatelessWidget {
                 fontSize: 17,
               ),
             ),
+
             SizedBox(height: 30),
+
             CommonTextField(
               txt: 'Email',
               controller: _emailController,
               obsecureTxt: false,
             ),
+
             SizedBox(height: 10),
+
             CommonTextField(
               txt: 'Password',
               controller: _passwordController,
               obsecureTxt: true,
             ),
+
             SizedBox(height: 10,),
+
             CommonTextField(
               txt: 'Confirm Password',
               controller: _confirmPasswordController,
               obsecureTxt: true,
             ),
+
             SizedBox(height: 60),
+
             CommonButton(txt: 'Register', onPressed: () {}),
+
             SizedBox(height: 40),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -65,6 +77,7 @@ class RegisterPage extends StatelessWidget {
                     fontSize: 17,
                   ),
                 ),
+
                 TextButton(onPressed: (){}, child: Text('Login now', style: TextStyle(
                     color: AppColor.iconClr,
                     fontWeight: FontWeight.w800,
