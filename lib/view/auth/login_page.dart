@@ -24,7 +24,9 @@ class LoginPage extends StatelessWidget {
               size: 80,
               color: AppColor.iconClr,
             ),
+
             SizedBox(height: 20),
+
             Text(
               AppText.lgnMsg,
               style: TextStyle(
@@ -33,21 +35,29 @@ class LoginPage extends StatelessWidget {
                 fontSize: 17,
               ),
             ),
+
             SizedBox(height: 30),
+
             CommonTextField(
               txt: 'Email',
               controller: _emailController,
               obsecureTxt: false,
             ),
+
             SizedBox(height: 10),
+
             CommonTextField(
               txt: 'Password',
               controller: _passwordController,
               obsecureTxt: true,
             ),
+
             SizedBox(height: 60),
+
             CommonButton(txt: 'Login', onPressed: () {}),
+
             SizedBox(height: 30),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -59,6 +69,7 @@ class LoginPage extends StatelessWidget {
                     fontSize: 17,
                   ),
                 ),
+                
                 TextButton(onPressed: (){}, child: Text('Register now', style: TextStyle(
                     color: AppColor.iconClr,
                     fontWeight: FontWeight.w800,
