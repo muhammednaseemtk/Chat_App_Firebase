@@ -2,14 +2,16 @@ import 'package:chat_app/common/button.dart';
 import 'package:chat_app/common/text_field.dart';
 import 'package:chat_app/constants/app_color.dart';
 import 'package:chat_app/constants/app_text.dart';
+import 'package:chat_app/view/auth/login_page.dart';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
-   RegisterPage({super.key});
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+  RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class RegisterPage extends StatelessWidget {
               size: 80,
               color: AppColor.iconClr,
             ),
-            
+
             SizedBox(height: 20),
 
             Text(
@@ -52,7 +54,7 @@ class RegisterPage extends StatelessWidget {
               obsecureTxt: true,
             ),
 
-            SizedBox(height: 10,),
+            SizedBox(height: 10),
 
             CommonTextField(
               txt: 'Confirm Password',
@@ -78,11 +80,22 @@ class RegisterPage extends StatelessWidget {
                   ),
                 ),
 
-                TextButton(onPressed: (){}, child: Text('Login now', style: TextStyle(
-                    color: AppColor.iconClr,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 17,
-                  ),))
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
+                  },
+                  child: Text(
+                    'Login now',
+                    style: TextStyle(
+                      color: AppColor.iconClr,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 17,
+                    ),
+                  ),
+                ),
               ],
             ),
           ],
