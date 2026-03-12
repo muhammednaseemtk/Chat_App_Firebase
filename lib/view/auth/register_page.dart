@@ -2,103 +2,111 @@ import 'package:chat_app/common/button.dart';
 import 'package:chat_app/common/text_field.dart';
 import 'package:chat_app/constants/app_color.dart';
 import 'package:chat_app/constants/app_text.dart';
+import 'package:chat_app/controller/auth_controller.dart';
 import 'package:chat_app/view/auth/login_page.dart';
+import 'package:chat_app/view/home/home_page.dart';
 import 'package:enefty_icons/enefty_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RegisterPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  final TextEditingController _confirmController = TextEditingController();
   RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.watch<AuthController>();
+
     return Scaffold(
       backgroundColor: AppColor.bgClr,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              EneftyIcons.message_text_outline,
-              size: 80,
-              color: AppColor.iconClr,
-            ),
-
-            SizedBox(height: 20),
-
-            Text(
-              AppText.rgMsg,
-              style: TextStyle(
-                color: AppColor.iconClr,
-                fontWeight: FontWeight.w400,
-                fontSize: 17,
-              ),
-            ),
-
-            SizedBox(height: 30),
-
-            CommonTextField(
-              txt: 'Email',
-              controller: _emailController,
-              obsecureTxt: false,
-            ),
-
-            SizedBox(height: 10),
-
-            CommonTextField(
-              txt: 'Password',
-              controller: _passwordController,
-              obsecureTxt: true,
-            ),
-
-            SizedBox(height: 10),
-
-            CommonTextField(
-              txt: 'Confirm Password',
-              controller: _confirmPasswordController,
-              obsecureTxt: true,
-            ),
-
-            SizedBox(height: 70),
-
-            CommonButton(txt: 'Register', onPressed: () {}),
-
-            SizedBox(height: 40),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  AppText.rgMsg1,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(EneftyIcons.message_text_outline,
+                  size: 80, color: AppColor.iconClr),
+              const SizedBox(height: 20),
+              const Text(AppText.rgMsg,
                   style: TextStyle(
-                    color: AppColor.iconClr,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 17,
-                  ),
+                      color: AppColor.iconClr,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 17)),
+              const SizedBox(height: 30),
+
+              CommonTextField(
+                  txt: 'Email',
+                  controller: _emailController,
+                  obsecureTxt: false),
+              const SizedBox(height: 10),
+              CommonTextField(
+                  txt: 'Password',
+                  controller: _passwordController,
+                  obsecureTxt: true),
+              const SizedBox(height: 10),
+              CommonTextField(
+                  txt: 'Confirm Password',
+                  controller: _confirmController,
+                  obsecureTxt: true),
+
+              if (controller.status == AuthStatus.error)
+                Padding(
+                  padding: const EdgeInsets.only(top: 12),
+                  child: Text(controller.errorMessage,
+                      style: const TextStyle(color: Colors.redAccent)),
                 ),
 
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
-                    );
-                  },
-                  child: Text(
-                    'Login now',
-                    style: TextStyle(
-                      color: AppColor.iconClr,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 17,
+              const SizedBox(height: 40),
+
+              controller.status == AuthStatus.loading
+                  ? const CircularProgressIndicator(color: AppColor.iconClr)
+                  : CommonButton(
+                      txt: 'Register',
+                      onPressed: () async {
+                        final success = await controller.register(
+                          _emailController.text.trim(),
+                          _passwordController.text.trim(),
+                          _confirmController.text.trim(),
+                        );
+                        if (success && context.mounted) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const HomePage()),
+                          );
+                        }
+                      },
                     ),
+
+              const SizedBox(height: 40),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(AppText.rgMsg1,
+                      style: TextStyle(
+                          color: AppColor.iconClr,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 17)),
+                  TextButton(
+                    onPressed: () {
+                      controller.resetStatus();
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => LoginPage()));
+                    },
+                    child: const Text('Login now',
+                        style: TextStyle(
+                            color: AppColor.iconClr,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 17)),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
